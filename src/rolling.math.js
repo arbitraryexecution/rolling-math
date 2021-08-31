@@ -1,11 +1,11 @@
-const BigNumber = require("bignumber.js");
-const assert = require("assert");
+const BigNumber = require('bignumber.js');
+const assert = require('assert');
 
 // in memory rolling average calculator
 module.exports = class RollingMath {
   constructor(windowSize) {
     if (!windowSize) {
-      throw "You must provide a valid window size";
+      throw new Error('You must provide a valid window size');
     }
     this.windowSize = windowSize;
     this.elements = new Array(windowSize);
@@ -17,7 +17,7 @@ module.exports = class RollingMath {
 
   // returns number of elements
   getNumElements() {
-    return this.elements[this.windowSize - 1] == undefined ? this.nextIdx : this.windowSize;
+    return this.elements[this.windowSize - 1] === undefined ? this.nextIdx : this.windowSize;
   }
 
   // returns windowSize;
@@ -42,32 +42,34 @@ module.exports = class RollingMath {
 
   // adds an element into the rolling average
   addElement(element) {
-    assert(BigNumber.isBigNumber(element), "Elements must be BigNumbers");
-    assert(element.isFinite(), "Elements cannot be non-finite");
+    assert(BigNumber.isBigNumber(element), 'Elements must be BigNumbers');
+    assert(element.isFinite(), 'Elements cannot be non-finite');
 
-    if (this.elements[this.windowSize - 1] == undefined) {
-      this.#addElementNonFullList(element);
+    if (this.elements[this.windowSize - 1] === undefined) {
+      this.addElementNonFullList(element);
     } else {
-      this.#addElementFullList(element);
+      this.addElementFullList(element);
     }
   }
 
   // adds an element to the rolling average when average is full
-  #addElementFullList(element) {
+  addElementFullList(element) {
     // update the sum
-    this.sum = this.sum.minus(this.#currElement());
+    this.sum = this.sum.minus(this.currElement());
     this.sum = this.sum.plus(element);
 
     // update the mean
     const oldMean = this.mean;
-    const diff = element.minus(this.#currElement());
+    const diff = element.minus(this.currElement());
     this.mean = oldMean.plus(diff.div(this.windowSize));
 
     // update the std
     const newDeviation = element.minus(this.mean);
-    const oldDeviation = this.#currElement().minus(oldMean);
+    const oldDeviation = this.currElement().minus(oldMean);
+    const sampleSize = this.windowSize - 1;
+    const summedDeviation = newDeviation.plus(oldDeviation);
 
-    this.variance = this.variance.plus((diff.times(newDeviation.plus(oldDeviation)).div(this.windowSize - 1)));
+    this.variance = this.variance.plus((diff.times(summedDeviation).div(sampleSize)));
 
     // Rounding can cause the variance to dip slightly below zero, make sure this never happens
     if (this.variance.isLessThan(0)) {
@@ -76,13 +78,13 @@ module.exports = class RollingMath {
 
     // replace the oldest element with this one
     this.elements[this.nextIdx] = element;
-    this.#incIdx();
+    this.incIdx();
   }
 
   // adds an element to the rolling average when average isn't full
-  #addElementNonFullList(element) {
+  addElementNonFullList(element) {
     // if it is the first element, initialize our variables
-    if(this.elements[0] == undefined) {
+    if (this.elements[0] === undefined) {
       this.sum = element;
       this.mean = element;
       this.variance = new BigNumber(0);
@@ -101,16 +103,16 @@ module.exports = class RollingMath {
 
     // insert element to list
     this.elements[this.nextIdx] = element;
-    this.#incIdx();
+    this.incIdx();
   }
 
   // returns current element
-  #currElement() {
+  currElement() {
     return this.elements[this.nextIdx];
   }
 
   // increments nextIdx
-  #incIdx() {
+  incIdx() {
     this.nextIdx = (this.nextIdx + 1) % this.windowSize;
   }
 };

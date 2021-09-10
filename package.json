@@ -1,6 +1,6 @@
 {
   "name": "rolling-math",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "Rolling math library that handles averages, variance and standard deviation based over a user specified window.",
   "main": "src/rolling.math.js",
   "scripts": {

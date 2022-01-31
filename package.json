@@ -1,7 +1,7 @@
 {
   "name": "rolling-math",
-  "version": "0.0.1",
-  "description": "Rolling math library that handles averages, variance and standard deviation based over a user specified window.",
+  "version": "0.0.2",
+  "description": "A math library that computes simple moving average and standard deviation on a rolling window.",
   "main": "src/rolling.math.js",
   "scripts": {
     "test": "jest"
@@ -10,14 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/arbitraryexecution/rolling-math.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Arbitrary Execution",
+  "license": "AGPLv3",
   "bugs": {
     "url": "https://github.com/arbitraryexecution/rolling-math/issues"
   },
   "homepage": "https://github.com/arbitraryexecution/rolling-math#readme",
   "dependencies": {
-    "bignumber.js": "^9.0.1",
+    "bignumber.js": "^9.0.2",
     "jest": "^27.0.6"
   },
   "devDependencies": {

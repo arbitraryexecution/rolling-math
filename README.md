@@ -41,7 +41,7 @@ size limit has been reached.  Window size corresponds directly with time--if you
 per day, and the window size is 5, you have a 5-day Simple Moving Average (SMA) filter.
 
 
-### Functions
+### Methods
 
 * `addElement(element)`: Add a value to the data set.  The `element` value must be a BigNumber type.
 * `getNumElements()`: Returns the number of values currently stored

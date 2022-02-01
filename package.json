@@ -1,6 +1,6 @@
 {
   "name": "rolling-math",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A math library that computes simple moving average and standard deviation on a rolling window.",
   "main": "src/rolling.math.js",
   "scripts": {

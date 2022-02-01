@@ -74,4 +74,4 @@ const stdDev = rollingMath.getStandardDeviation();  // 22.19234
 
 ## License
 
-GNO Affero General Public License (AGPLv3).  See [LICENSE](https://github.com/arbitraryexecution/rolling-math/blob/master/LICENSE).
+GNU Affero General Public License (AGPLv3).  See [LICENSE](https://github.com/arbitraryexecution/rolling-math/blob/master/LICENSE).
